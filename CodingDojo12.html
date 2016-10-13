@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Coding Dojo 12</title>
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.0.1.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.0.1.js"></script>
+  <script>
+	//! Funções do JokenPo
+	function JuizJokenPo(player1, player2)
+	{
+	    var inputs_aceitaveis = ["pedra", "papel", "tesoura"];
+	    	
+	if (inputs_aceitaveis.indexOf(player1) == -1)
+			return "naovalidoplayer1";
+
+	if (inputs_aceitaveis.indexOf(player2) == -1)
+			return "naovalidoplayer2";			
+
+	if (player1 == player2)
+	  return "empate";
+	 var result;
+	var resultados = [
+		
+		["pedrapapel", "player2"],
+		["pedratesoura", "player1"],
+		["papelpedra", "player1"],
+		["papeltesoura", "player2"],
+		["tesourapapel", "player1"],
+		["tesourapedra", "player2"]
+	];
+	/*var concatenados = player1 + player2;
+	var reduzido = resultados.filter((item1) => {
+	    return concatenados === item1[0];
+	});
+		return reduzido[0][1];*/
+	var resultados = {
+		'pedra': {
+		    'papel': 'player2',
+		    'tesoura': 'player1',
+		},
+		'papel': {
+		    'pedra': 'player1',
+		    'tesoura': 'player2',
+		},
+		'tesoura': {
+		    'pedra': 'player2',
+		    'papel': 'player1',
+		}
+	};
+	return resultados[player1][player2];
+		
+	/*	["pedrapapel", "player2"],
+		["pedratesoura", "player1"],
+		["papelpedra", "player1"],
+		["papeltesoura", "player2"],
+		["tesourapapel", "player1"],
+		["tesourapedra", "player2"]
+	];*/
+
+
+		/* resultados.forEach(function (item){
+		if (item[0] == player1 && item[1] == player2)
+		 {
+		    result = item[2]; 
+		 }
+	}) */
+	
+	return result;
+	
+	
+	/*if(player1 == "pedra" && player2 == "tesoura")
+			return "player1";
+			
+		if(player1 == "pedra" && player2 == "papel")
+			return "player2";
+			
+		if(player1 == "tesoura" && player2 == "pedra")
+			return "player2";
+			
+		if(player1 == "tesoura" && player2 == "papel")
+			return "player1";
+
+		if(player1 == "papel" && player2 == "tesoura")
+			return "player2";
+
+		if(player1 == "papel" && player2 == "pedra")
+			return "player1";
+	*/
+		return "erro";
+	}
+	
+  </script>
+  
+  <script>
+    QUnit.module( "Basicão" );
+	QUnit.test( "Testes Básicos de Exemplo", function( assert ) {
+		var value = "hello";
+		assert.equal( value, "hello", "Estamos Testando se value é hello" );
+		assert.ok( 1 == 1, "Estamos testando uma função booleana" );
+    });
+	
+	QUnit.module( "Testes do Desafio" );
+	QUnit.test( "Testes Básicos", function( assert ) {
+		assert.ok( 1 == 1, "Estamos testando uma função booleana" );
+		
+		assert.equal(JuizJokenPo("bola","quadrado"), "naovalidoplayer1", "Testando se inputs player1 validos sao aceitos");
+
+		assert.equal(JuizJokenPo("pedra","quadrado"), "naovalidoplayer2", "Testando se inputs player2 validos sao aceitos");
+		
+		assert.equal(JuizJokenPo("Pedra","quadrado"), "naovalidoplayer1", "Testando se inputs player2 validos sao aceitos");
+		
+		
+		assert.equal(JuizJokenPo("pedra","pedra"), "empate", "Testando se pedra empata com pedra");
+		
+		assert.equal(JuizJokenPo("pedra","tesoura"), "player1","Testando se player1 pedra e player2 tesoura, player1 ganha");
+		
+		assert.equal(JuizJokenPo("pedra","papel"), "player2", 
+		"Testando se player1 pedra e player2 papel, player2 ganha");
+
+		assert.equal(JuizJokenPo("tesoura","tesoura"), "empate", "Testando se tesoura empata com tesoura");
+		
+		assert.equal(JuizJokenPo("tesoura","pedra"), "player2",
+		"Testando se player1 tesoura e player2 pedra, player2 ganha");
+		
+		assert.equal(JuizJokenPo("tesoura","papel"), "player1",
+		"Testando se player1 tesoura e player2 papel, player1 ganha");
+		
+		assert.equal(JuizJokenPo("papel","papel"), "empate", "Testando se papel empata com papel");
+		
+		assert.equal(JuizJokenPo("papel","tesoura"), "player2",
+		"Testando se player1 papel e player2 tesoura, player2 ganha");
+
+		assert.equal(JuizJokenPo("papel","pedra"), "player1",
+		"Testando se player1 papel e player2 pedra, player1 ganha");
+	});
+	
+	QUnit.test( "Testes Complexos", function( assert ) {
+		assert.ok( 1 == 1, "Estamos testando uma função booleana" );
+    });
+  </script>
+</body>
+</html>
